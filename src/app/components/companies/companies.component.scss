@@ -1,0 +1,96 @@
+@import "../../../assets/scss/link.scss";
+
+
+
+.doubleSvgWrapper{
+  height: 100%;
+  width: 100vw;
+  max-width: 1170px;
+  position: absolute;
+  top: 0;
+  .svgWrapper{
+    @include square(100%);
+    position: absolute;
+    &:nth-child(1){
+      transform: translate(-3%, 16%);
+    }
+    &:nth-child(2){
+      transform: translate(-6%, -12%);
+    }
+  }
+}
+
+
+.slider-box{
+  @include size(100vw, 100%);
+  @include flex(center,column);
+  max-height: 682px;
+  z-index: 99999;
+  border: 1px solid;
+  border-image-source: linear-gradient(121.5deg, rgba(255, 255, 255, 0.35) 12.12%, rgba(255, 255, 255, 0) 51.5%, rgba(255, 255, 255, 0.182) 95.2%);
+  background: rgba(13, 13, 13, 0.15);
+  backdrop-filter: blur(107px);
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 33px;
+  padding: 2rem 5rem;
+  .slider-box_header{
+    @include flex(between);
+    width: 100%;
+    margin: 0 0 1rem 0;
+    .title{
+      font-family: 'Gilroy-Medium', sans-serif;
+      font-weight: 700;
+      color: $white;
+    }
+    .slider_controls{
+      @include flex(center);
+      button{
+        @include square(56px);
+        margin:0 .38rem;
+        &:nth-child(1){
+          @include bg('../../assets/svg/sliderIcons/btn-left.svg', 100%)
+        }
+        &:nth-child(2){
+          @include bg('../../assets/svg/sliderIcons/btn-right.svg', 100%)
+        }
+      }
+    }
+  }
+  .slider-box_content{
+    @include size(33.1944444444vw,100%);
+    overflow: hidden;
+    .slider-box_content-item{
+      @include square(100%);
+      @include flex(between);
+      .item-pic{
+        @include size(100%, 55%);
+        @include flex(between,column);
+        img{
+          @include size(65%, 100%)
+        }
+        .sec-pic{
+          @include size(33%, 100%);
+          @include flex(between);
+          img{
+            @include size(100%, 49%);
+          }
+        }
+      }
+      .item-text{
+        @include size(100%, 40%);
+          img{
+            margin: 0 0 .5rem 0;
+          }
+        p{
+          font-family: 'Gilroy-Regular',sans-serif;
+          color: $white;
+          font-size: $main-font-s;
+          font-weight: 400;
+          line-height: 166%;
+          margin: .5em 0 ;
+        }
+      }
+    }
+
+  }
+}

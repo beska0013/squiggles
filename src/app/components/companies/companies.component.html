@@ -1,0 +1,39 @@
+<div class="doubleSvgWrapper">
+  <div class="svgWrapper">
+      <app-sq-companies></app-sq-companies>
+  </div>
+  <div class="svgWrapper">
+      <app-sq-companies></app-sq-companies>
+  </div>
+
+</div>
+
+<div class="slider-box">
+  <div class="slider-box_header">
+    <h3 class="title">Companies</h3>
+    <div class="slider_controls">
+      <button (click)="sliderDecrement()"></button>
+      <button (click)="sliderIncrement()"></button>
+    </div>
+  </div>
+
+  <ul class="slider-box_content">
+
+    <li class="slider-box_content-item" *ngFor="let item of sliderItemList;trackBy:sliderTrack">
+      <div class="item-pic">
+        <img class="m-pic" [src]="item.imgMain" alt="">
+        <div class="sec-pic">
+          <img *ngFor="let img of item.imgSec" [src]="img" alt="">
+        </div>
+      </div>
+
+      <div class="item-text">
+        <img [src]="item.logo" alt="">
+
+        <p *ngFor="let txt of item.text">{{txt}}</p>
+      </div>
+
+    </li>
+  </ul>
+
+</div>

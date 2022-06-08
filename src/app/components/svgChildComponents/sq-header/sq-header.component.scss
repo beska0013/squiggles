@@ -1,0 +1,10 @@
+@import "../../../../assets/scss/link.scss";
+
+
+
+
+svg{
+  path{
+    @include svgPathAnime(1, 2000, squiggleDraw, $speed, $initial);
+  }
+}

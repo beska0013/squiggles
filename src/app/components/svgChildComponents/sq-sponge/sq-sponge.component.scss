@@ -1,0 +1,20 @@
+
+@import "../../../../assets/scss/link.scss";
+
+
+
+
+svg{
+
+  path{
+    @for $i from 1 to 1500 {
+      $num: random(1500);
+      &:nth-child(#{$i}) {
+        animation:
+          sq_scale 3s linear $i * (1s / $speed) infinite,
+          sq_rotate 3s linear $i * (1s / $speed) infinite;
+      }
+    }
+
+  }
+}
