@@ -1,0 +1,111 @@
+@import '../../../../assets/scss/link.scss';
+
+
+
+
+.bg{
+
+  @include size (704px,627px);
+  @include bg('../../assets/images/blogSponge.svg',100%);
+  position: absolute;
+  z-index: -1;
+  right: 0;
+}
+
+
+
+section{
+  @include flex(center);
+  .wrapper{
+    max-width: 1230px;
+
+
+    .container{
+      @include flex(between);
+      @include size(100%, 77%);
+      flex-wrap: wrap;
+      .blog-card{
+        position: relative;
+        margin: 1vw;
+        @include size(165px,45%);
+        max-width: 420px;
+        min-width: 358px;
+        @include flex(start);
+        border-radius: 20px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: $main-trans-all;
+
+
+        &:hover{
+          transition: $main-trans-all;
+          transform: scale(1.1) translate(-7%,-3%);
+
+          .bl-card_wrapper{
+            .blog-content{
+              border: 2px solid;
+              border-image-slice: 1;
+              border-width: 5px;
+              border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+            }
+          }
+        }
+        .bl-image{
+          height: 100%;
+          width: 55px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          border-radius: 20px;
+          .img{
+            position: absolute;
+            height: 100%;
+            width: 200px;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: auto;
+            -o-background-size: auto;
+            -moz-background-size: auto;
+            -webkit-background-size: auto;
+            animation: sq_rotate 20s linear infinite;
+          }
+        }
+        .bl-card_wrapper{
+          height: 173px;
+          padding: 10px 10px 10px 0;
+
+          .blog-content{
+            @include square(100%);
+            background: rgba(255, 255, 255, 0.69);
+            //box-shadow: 0 18px 44px rgba(0, 0, 0, 0.04);
+            color:$f-main-color;
+            padding: 2.5rem  1.5rem  2.5rem  2rem;
+            text-transform: capitalize;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+
+            h4{
+              font-family: 'Gilroy-Medium', sans-serif;
+              font-size: 20px;
+              font-weight: 700;
+              line-height: 26px;
+              margin: 0 0 0.5em 0;
+            }
+            p{
+              font-family: 'Gilroy-Medium', sans-serif;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 21px;
+            }
+
+          }
+        }
+
+      }
+    }
+  }
+
+}

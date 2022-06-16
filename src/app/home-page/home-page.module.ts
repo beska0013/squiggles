@@ -8,6 +8,7 @@ import {SvgSquiggleComponent} from "./components/svg-squiggle/svg-squiggle.compo
 import { CompaniesComponent } from './components/companies/companies.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ObserverInterceptorDirective } from './directives/observer-interceptor.directive';
 
 const routes: Routes =[
   {
@@ -24,7 +25,11 @@ const routes: Routes =[
     AboutComponent,
     CompaniesComponent,
     BlogComponent,
-    ContactComponent
+    ContactComponent,
+    ObserverInterceptorDirective
+  ],
+  exports: [
+    HeaderComponent
   ],
   imports: [
     CommonModule,

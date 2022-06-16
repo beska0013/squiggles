@@ -1,6 +1,15 @@
 @import '../../../../assets/scss/link.scss';
 
 
+
+
+header{
+  @include square(100%);
+  max-height: 80px;
+  min-height: 60px;
+}
+//
+//
 //header{
 //  @include flex(start,column);
 //  nav{
@@ -101,43 +110,43 @@
 //    }
 //  }
 //}
-
-
-@media screen and (max-width:1020px){
-  //header{
-  //  nav{
-  //    flex-direction: row-reverse;
-  //    width: 90%;
-  //    position: fixed;
-  //    z-index: 10;
-  //    .btn-mob_menu{  @include flex(center);z-index: 10;}
-  //    .logo{
-  //      @include bg('../../assets/images/header_icon/logo_mob.svg',100%);
-  //    }
-  //
-  //  }
-  //  section{
-  //    //@include flex(center);
-  //    //@include square(100%);
-  //    //max-height: calc(100% - #{$h-max-height});
-  //    //min-height: calc(100% - #{$h-min-height});
-  //    //max-width: $page-max-width;
-  //    //position: relative;
-  //    .header_content{
-  //      @include flex(center,column);
-  //      h1{
-  //        font-size: 64px;
-  //        border-right: none;
-  //        padding: .75em 0;
-  //        text-align: center;
-  //      }
-  //      h2{
-  //        font-size: 48px;
-  //        text-align: center;
-  //        padding: .75em 0;
-  //      }
-  //      .separator{ @include size(1px, 100%);}
-  //    }
-  //  }
-  //}
-}
+//
+//
+//@media screen and (max-width:1020px){
+//  header{
+//    nav{
+//      flex-direction: row-reverse;
+//      width: 90%;
+//      position: fixed;
+//      z-index: 10;
+//      .btn-mob_menu{  @include flex(center);z-index: 10;}
+//      .logo{
+//        @include bg('../../assets/images/header_icon/logo_mob.svg',100%);
+//      }
+//
+//    }
+//    section{
+//      //@include flex(center);
+//      //@include square(100%);
+//      //max-height: calc(100% - #{$h-max-height});
+//      //min-height: calc(100% - #{$h-min-height});
+//      //max-width: $page-max-width;
+//      //position: relative;
+//      .header_content{
+//        @include flex(center,column);
+//        h1{
+//          font-size: 64px;
+//          border-right: none;
+//          padding: .75em 0;
+//          text-align: center;
+//        }
+//        h2{
+//          font-size: 48px;
+//          text-align: center;
+//          padding: .75em 0;
+//        }
+//        .separator{ @include size(1px, 100%);}
+//      }
+//    }
+//  }
+//}

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -11,7 +11,9 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 export class SvgSquiggleComponent implements OnInit, AfterViewInit {
 
 
-  @ViewChild('path') svgPath!: ElementRef
+  @ViewChild('path') svgPath!: ElementRef;
+
+  @Input() observerIterceptor!:ElementRef
 
 
   constructor( private gsapSrv: GsapServiceService) { }
@@ -23,6 +25,7 @@ export class SvgSquiggleComponent implements OnInit, AfterViewInit {
     gsap.registerPlugin(ScrollTrigger);
 
     this.gsapSrv.drawPathListFPart(this.svgPath.nativeElement.children)
+    this.gsapSrv.drawPathListLPart(this.svgPath.nativeElement.children, this.observerIterceptor )
 
 
   }

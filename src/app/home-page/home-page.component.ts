@@ -1,16 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('about') aboutCmp!: ElementRef
   @ViewChild('companies') companiesCmp!: ElementRef
   @ViewChild('blog') blogCmp!: ElementRef
   @ViewChild('contact') contactCmp!: ElementRef
+
 
 
 
@@ -21,12 +22,14 @@ export class HomePageComponent implements OnInit {
   navtState!:boolean;
 
   navtStateHandler(event: boolean){
-
     this.navtState = event
   }
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    console.log(this.contactCmp);
   }
 
 }

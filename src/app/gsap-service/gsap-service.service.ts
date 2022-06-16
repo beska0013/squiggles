@@ -61,7 +61,7 @@ export class GsapServiceService {
   }
 
    drawPathListMainPart(pathList:any[]){
-    console.log('hello')
+
     sessionStorage.setItem('animationStart', 'true')
     pathList.forEach(( p: any) =>{
 
@@ -78,7 +78,8 @@ export class GsapServiceService {
   }
 
    drawPathListLPart(path:any[], el:ElementRef){
-    let plLPart;
+     console.log(el);
+     let plLPart;
     const pathList = gsap.utils.toArray(path);
     const footer = el.nativeElement;
     const options = {

@@ -1,0 +1,36 @@
+
+<header>
+  <nav  >
+    <div class="logo"></div>
+    <button class="btn-mob_menu"
+            [class]="{'btn-close-mob_menu': btnMob}"
+            (click)="burgerBtnHandler()">
+             <span class="burger-menu">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+             </span>
+    </button>
+
+
+    <ul  class="navigation" [class]="{'show-nav' : navState}">
+      <li>
+        <a >About</a>
+      </li>
+      <li>
+        <a >Companies</a>
+      </li>
+      <li>
+        <a routerLink="/blog-page" >Blog</a>
+      </li>
+      <li>
+        <a >Contact</a>
+      </li>
+    </ul>
+
+  </nav>
+
+
+
+</header>
+
