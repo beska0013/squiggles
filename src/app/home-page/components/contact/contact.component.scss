@@ -1,0 +1,84 @@
+@import '../../../../assets/scss/link.scss';
+
+
+
+
+
+
+
+
+
+form{
+  @include size( fit-content,100%);
+  max-width: 363px;
+  @include flex(start, column);
+  align-items: flex-start;
+  .title{
+    font-family: "Gilroy-ExtraBold", sans-serif;
+    font-weight: 800;
+    margin: 0 0 .6em 0;
+  }
+  label{
+    font-family: "Gilroy-Medium", sans-serif;
+    font-weight: 500;
+    color:$f-main-color;
+    @include flex(start,column);
+    align-items: flex-start;
+    text-align: start;
+    width: 100%;
+    margin: .5rem 0;
+    input,textarea{
+      border: none;
+      background: rgba(4, 4, 4, 0.03);
+      border-radius: 15px;
+      font-family: "Gilroy-Light", sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      margin: .5rem 0;
+      padding: 1em;
+      &::placeholder,&::-ms-input-placeholder,&:-ms-input-placeholder{
+        color: #888888;
+        opacity: 1;
+      }
+    }
+    input{ @include size(46px, 100%);}
+    textarea{ @include size(143px, 100%);}
+
+  }
+  button{
+    @include size(52px, 100%);
+    background: linear-gradient(230.03deg, #EA97CC 14.15%, #F7BBBB 84.13%);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.04);
+    border-radius: 27px;
+    font-family: 'Gilroy-Regular',sans-serif;
+    font-weight: 900;
+    text-align:center ;
+    color: $white;
+    margin: 2rem 0 0 0;
+  }
+}
+
+
+
+@media screen and (max-width:1020px){
+  form{
+
+
+    label{
+
+      input,textarea{
+        background: #FFFFFF;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+
+      }
+      input{ @include size(46px, 100%);}
+      textarea{ @include size(143px, 100%);}
+
+    }
+    button{
+
+    }
+  }
+}
+
+

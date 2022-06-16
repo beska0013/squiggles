@@ -1,0 +1,173 @@
+@import '../../../../assets/scss/link.scss';
+
+
+
+
+
+
+.slider-box{
+  @include square(100%);
+  @include flex(center);
+  .mob_header{ display: none}
+  .slider-win{
+    @include square(100%);
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 57.5% 35.5%;
+    grid-column-gap: 7%;
+    max-height: 614px;
+    .slider-box_content{
+
+      overflow: hidden;
+      position: relative;
+      &.slide_pic{
+        background: rgba(255, 255, 255, 0.79);
+        border: 1px solid rgba(255, 255, 255, 0.59);
+        box-shadow: inset 0 18px 44px rgba(0, 0, 0, 0.07);
+        border-radius: 30px;
+      }
+      .slider-box_content-item{
+        @include square(100%);
+        @include flex(between);
+        position: absolute;
+        .item-pic{
+          @include square(100%);
+          @include flex(between,column);
+          padding: 3.5rem;
+          img{
+            @include size(65%, 100%)
+          }
+          .sec-pic{
+            @include size(33%, 100%);
+            @include flex(between);
+            img{
+              @include size(100%, 49%);
+            }
+          }
+        }
+        .item-text{
+          @include square(100%);
+          img{ margin: 0 0 .5rem 0;}
+          p{
+            font-family: 'Gilroy-Regular',sans-serif;
+            color: $f-main-color;
+            font-size: $main-font-s;
+            font-weight: 400;
+            line-height: 166%;
+            margin: .5em 0 ;
+          }
+        }
+      }
+      .slider-box_header{
+        @include flex(between);
+        width: 100%;
+        margin: 0 0 1rem 0;
+        .title{
+          font-family: 'Gilroy-Medium', sans-serif;
+          font-weight: 700;
+          color: $f-main-color;
+        }
+        .slider_controls{
+          @include flex(center);
+          button{
+            @include square(45px);
+            margin:0 .38rem;
+            &:nth-child(1){
+              @include bg('../../assets/images/sliderIcons/btn-left.svg', 100%)
+            }
+            &:nth-child(2){
+              @include bg('../../assets/images/sliderIcons/btn-right.svg', 100%)
+            }
+            &[disabled]{
+              filter: grayscale(100);
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+
+@media screen and (max-width:1020px){
+  .slider-box {
+    @include square(100%);
+    display: block;
+    background: rgba(255, 255, 255, 0.79);
+    border: 1px solid rgba(255, 255, 255, 0.59);
+    box-shadow: inset 0 18px 44px rgb(0 0 0 / 7%);
+    border-radius: 30px;
+    padding: 6vw;
+    max-height: fit-content;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    .mob_header{ display: inline-block}
+    .slider-win{
+      display: block;
+      max-height: 100%;
+      overflow-y: hidden;
+      .slider-box_content {
+        overflow: unset;
+        &.slide_pic {
+          background: none;
+          border: none;
+          box-shadow: none;
+          border-radius: 0;
+          height: 40%;
+          width: auto;
+        }
+
+        .slider-box_content-item {
+          justify-content: center;
+          .item-pic {
+            @include max-square(325px);
+            padding: 0;
+          }
+
+          .item-text {
+            p{
+              font-size: 14px;
+            }
+          }
+        }
+
+        .slider-box_header {
+          display: none;
+        }
+      }
+      ul{
+        @include flex(between);
+        height: 50%;
+        width: fit-content;
+        li{
+          @include size(100%, 85vw);
+          position: unset;
+          max-width: 800px;
+          padding: 1em;
+          p{
+            max-width: 750px;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width:376px){
+
+    .slider-box {
+
+      .slider-win{
+        .slider-box_content {
+          &.slide_pic {
+            height: 33%;
+          }
+        }
+      }
+
+    }
+
+}

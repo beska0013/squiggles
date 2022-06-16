@@ -1,0 +1,26 @@
+<h3 class="title" #blTitle>Blog</h3>
+<div class="blog-container" #blContainer>
+  <div class="bl-container-box" #blCart>
+    <div class="blog-card"
+         *ngFor="let blog of $blogItems | async as blogs"
+    >
+      <div class="bl-image">
+        <span class="img"></span>
+      </div>
+      <div class="bl-card_wrapper">
+        <div class="blog-content">
+          <h4 class="bc_title">
+            {{blog.title}}
+          </h4>
+          <p class="blog_text">
+           {{blog.content}}
+          </p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+<button #blBtn>Show More</button>

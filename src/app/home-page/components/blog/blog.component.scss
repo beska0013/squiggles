@@ -1,0 +1,100 @@
+@import '../../../../assets/scss/link.scss';
+
+
+
+
+
+.blog-container{
+  @include flex(start);
+  width: 100%;
+  margin:  0 0 4rem 0;
+  .bl-container-box{
+    display: flex;
+    .blog-card{
+      @include flex(start);
+      height: 173px;
+      border-radius: 20px;
+      .bl-image{
+        height: 100%;
+        width: 55px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        border-radius: 20px;
+        .img{
+          position: absolute;
+          height: 100%;
+          width: 200px;
+          @include  bg('../../assets/images/blogSponge.png',  auto);
+          animation: sq_rotate 20s linear infinite;
+        }
+      }
+      .bl-card_wrapper{
+        height: 173px;
+        padding: 10px 10px 10px 0;
+        .blog-content{
+          @include square(100%);
+          background: rgba(255, 255, 255, 0.69);
+          box-shadow: 0 18px 44px rgba(0, 0, 0, 0.04);
+          color:$f-main-color;
+          padding: 2.5rem  1.5rem  2.5rem  2rem;
+          text-transform: capitalize;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+
+          h4{
+            font-family: 'Gilroy-Medium', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 26px;
+            margin: 0 0 0.5em 0;
+          }
+          p{
+            font-family: 'Gilroy-Medium', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 21px;
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+button{
+  background: linear-gradient(230.03deg, #EA97CC 14.15%, #F7BBBB 84.13%);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.04);
+  border-radius: 27px;
+  height: 52px;
+  width: 174px;
+  font-family: 'Gilroy-Regular',sans-serif;
+  font-weight: 900;
+  font-size: $main-font-s;
+  color: $white;
+  text-align:center ;
+}
+
+
+@media screen and (max-width:1020px){
+
+
+  .blog-container{
+    overflow-x: auto;
+    overflow-y: hidden;
+    .bl-container-box{
+      display: flex;
+      .blog-card{
+        width: 358px;
+
+
+
+      }
+
+    }
+
+  }
+}

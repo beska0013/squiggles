@@ -1,1 +1,42 @@
-<p>home-page works!</p>
+
+
+
+
+<app-svg-squiggle></app-svg-squiggle>
+
+<app-header (navState) = navtStateHandler($event)>
+
+  <ul  class="navigation" [class]="{'show-nav' : navtState}">
+    <li>
+      <a (click)="scrollTo(aboutCmp)">About</a>
+    </li>
+    <li>
+      <a (click)="scrollTo(companiesCmp)">Companies</a>
+    </li>
+    <li>
+      <a routerLink="/blog" >Blog</a>
+    </li>
+    <li>
+      <a (click)="scrollTo(contactCmp)">Contact</a>
+    </li>
+  </ul>
+</app-header>
+
+
+<main>
+  <section  #about>
+
+    <app-about></app-about>
+  </section>
+
+<section #companies>
+  <app-companies></app-companies>
+</section>
+<section #blog>
+  <app-blog></app-blog>
+</section>
+
+</main>
+<footer #contact>
+<app-contact></app-contact>
+</footer>

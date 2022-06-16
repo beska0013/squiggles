@@ -1,0 +1,10 @@
+@import '../../../../assets/scss/link.scss';
+
+
+
+svg{
+  position: absolute;
+  @include size(4135px, 1440px);
+  z-index: -1;
+
+}

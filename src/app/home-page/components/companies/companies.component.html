@@ -1,0 +1,42 @@
+
+
+
+<div class="slider-box" #slideBox>
+  <h3 class="mob_header title">Companies</h3>
+  <div class="slider-win">
+    <ul class="slider-box_content slide_pic" #sliderPic>
+
+      <li class="slider-box_content-item"
+      *ngFor="let item of sliderItems">
+        <div class="item-pic">
+          <img class='m-pic' [src]="item.imgMain" alt="">
+          <div class="sec-pic">
+            <img *ngFor="let path of item.imgSec" [src]="path" alt="">
+          </div>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="slider-box_content slide_text" >
+      <div class="slider-box_header">
+        <h3 class="title">Companies</h3>
+        <div class="slider_controls">
+          <button #btnL (click)="btnLHandler()"></button>
+          <button #btnR (click)="btnRHandler()"></button>
+        </div>
+      </div>
+      <ul #sliderText>
+        <li class="slider-box_content-item" *ngFor="let item of sliderItems">
+            <div class="item-text">
+              <img [src]="item.logo" alt="">
+              <p *ngFor="let text of item.text">{{text}}</p>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+</div>

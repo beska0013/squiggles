@@ -1,0 +1,34 @@
+
+<header>
+
+
+  <nav  >
+    <div class="logo"></div>
+    <button class="btn-mob_menu"
+            [class]="{'btn-close-mob_menu': btnMob}"
+            (click)="burgerBtnHandler()">
+             <span class="burger-menu">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+             </span>
+    </button>
+
+<ng-content></ng-content>
+
+  </nav>
+
+  <section>
+    <div class="header_content">
+      <h1 #headerOne>
+        Bradyn <br>
+        Gardiyash
+      </h1>
+      <div class="separator"></div>
+      <h2 #headerTwo>
+        Founder
+      </h2>
+    </div>
+  </section>
+
+</header>

@@ -1,0 +1,109 @@
+@import '../../assets/scss/link.scss';
+
+
+
+
+
+
+
+.navigation{
+  @include size(100%, $n-actual-size);
+  @include min-size(100%, $n-max-width);
+  @include max-size(100%, $n-max-width);
+  @include flex(between);
+  li{
+    color: #0B0A0A;
+    a{
+      font-family: 'Gilroy-Regular',sans-serif;
+      font-weight: 500;
+      font-size: $main-font-s;
+      cursor: pointer;
+      position: relative;
+      &::after{
+        content:'';
+        @include size(2px, 0%);
+        border-radius: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translate(0, 200%);
+        transition: $main-trans-all;
+        background: linear-gradient(90.44deg, #B0E5F2 14.49%, #F07BCF 104.17%);
+      }
+      &:hover{
+        &::after{
+          transition: $main-trans-all;
+          @include size(2px, 100%);
+        }
+      }
+    }
+  }
+}
+
+
+
+
+footer {
+  @include flex(center);
+  app-contact{
+    @include square(100%);
+    max-width: 1170px;
+    @include flex(start);
+  }
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:1020px){
+  .navigation{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(268px);
+    width: 100%;
+    max-width: 268px;
+    min-width: 268px;
+    padding: 80px 0;
+    transform: translate(-100%, 0);
+    transition: $main-trans-all;
+    @include flex(start,column);
+    &.show-nav{
+      transition: $main-trans-all;
+      transform: translate(0%, 0);
+    }
+    li{
+      width: 100%;
+      padding: 1rem 0 1rem 6vw;
+      transition: $main-trans-all;
+      font-weight: 500;
+      a{
+
+        &::after{ display: none; }
+        &:hover{
+          transition: $main-trans-all;
+          color: #F07BCF;
+          &::after{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  footer{
+
+    align-items: center;
+    app-contact{
+   
+      @include flex(center);
+    }
+  }
+}
