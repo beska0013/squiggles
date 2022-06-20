@@ -1,11 +1,15 @@
 import {ElementRef, Injectable} from '@angular/core';
 import {gsap} from "gsap";
-import ScrollTrigger from 'gsap/ScrollTrigger';
+
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GsapServiceService {
+
+  $articalePage = new BehaviorSubject<boolean>(false);
+  articalePage = () => this.$articalePage as Observable<boolean>;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,9 @@ export class HeaderComponent implements OnInit {
 
   btnMob = false;
 
-  // @Output() navState = new EventEmitter<boolean>()
+  @Input() articalePg:any;
+
+
 
   burgerBtnHandler = () => {
     this.btnMob = !this.btnMob;
@@ -20,6 +22,7 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // console.log(this.articalePg);
   }
 
 }

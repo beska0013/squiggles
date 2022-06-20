@@ -18,7 +18,10 @@ export class SvgSquiggleComponent implements OnInit, AfterViewInit {
 
   constructor( private gsapSrv: GsapServiceService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+
+  }
 
 
   ngAfterViewInit(): void {

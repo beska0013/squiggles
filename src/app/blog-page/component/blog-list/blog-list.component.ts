@@ -14,11 +14,12 @@ export class BlogListComponent implements OnInit {
   ) { }
   $blogData = this.activeRoute.snapshot.data['blogs']
 
-  showBlogPost(blogData: string[]){
+  showBlogPost(blogData:{title: string, text: string[]} ){
 
-    this.router.navigate(['blog-page/current_article'], {state: {data: blogData}})
+    this.router.navigate([`blog/${blogData.title}`], {state: {data: blogData}})
   }
   ngOnInit(): void {
+    // console.log(this.$blogData);
   }
 
 }

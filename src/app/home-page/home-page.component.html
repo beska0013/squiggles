@@ -2,7 +2,9 @@
 
 
 
-<app-svg-squiggle [observerIterceptor] = "contactCmp"></app-svg-squiggle>
+<app-svg-squiggle [observerIterceptor] = "contactCmp">
+
+</app-svg-squiggle>
 
 <app-header (navState) = navtStateHandler($event)>
 
@@ -14,7 +16,7 @@
       <a (click)="scrollTo(companiesCmp)">Companies</a>
     </li>
     <li>
-      <a routerLink="/blog-page" >Blog</a>
+      <a routerLink="/blog" >Blog</a>
     </li>
     <li>
       <a (click)="scrollTo(contactCmp)">Contact</a>

@@ -9,7 +9,7 @@
 
       <div class="blog-card"
            *ngFor="let blog of $blogData"
-           (click)="showBlogPost(blog.text)">
+           (click)="showBlogPost({title: blog.title, text: blog.text})">
         <div class="bl-image">
           <span class="img" [style.background-image]="'url(' + blog.img + ')'"></span>
         </div>

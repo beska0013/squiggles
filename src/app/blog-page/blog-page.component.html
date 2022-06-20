@@ -1,37 +1,7 @@
 
 <!--<div class="bg"></div>-->
 <div class="blogWrapper">
-  <app-header></app-header>
+  <app-header [articalePg]="$articalePg | async"></app-header>
  <router-outlet></router-outlet>
-<!--  <section>-->
-<!--    <div class="wrapper">-->
-<!--      <div class="container">-->
-
-
-
-<!--        <div class="blog-card"-->
-<!--             *ngFor="let blog of $blogData"-->
-<!--              (click)="showBlogPost(blog.text)">-->
-<!--          <div class="bl-image">-->
-<!--            <span class="img" [style.background-image]="'url(' + blog.img + ')'"></span>-->
-<!--          </div>-->
-<!--          <div class="bl-card_wrapper">-->
-<!--            <div class="blog-content">-->
-<!--              <h4 class="bc_title">-->
-<!--                {{blog.title}}-->
-<!--              </h4>-->
-<!--              <p class="blog_text">-->
-<!--                {{blog.content}}-->
-<!--              </p>-->
-<!--            </div>-->
-<!--          </div>-->
-
-
-<!--        </div>-->
-
-<!--      </div>-->
-<!--    </div>-->
-
-<!--  </section>-->
 </div>
 

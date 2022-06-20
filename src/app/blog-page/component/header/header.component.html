@@ -1,11 +1,11 @@
 
 <header>
   <nav  >
-    <div class="logo"></div>
+    <div class="logo" [class]="{'articalePg': articalePg}"></div>
     <button class="btn-mob_menu"
             [class]="{'btn-close-mob_menu': btnMob}"
             (click)="burgerBtnHandler()">
-             <span class="burger-menu">
+             <span class="burger-menu" [class]="{'articalePg': articalePg}">
                   <span></span>
                   <span></span>
                   <span></span>
@@ -13,18 +13,18 @@
     </button>
 
 
-    <ul  class="navigation" [class]="{'show-nav' : navState}">
+    <ul  class="navigation" [class]="{'show-nav' : btnMob , 'articalePg':articalePg}">
       <li>
-        <a >About</a>
+        <a routerLink="/" [state]="{cmp: 'aboutCmp'}" >About</a>
       </li>
       <li>
-        <a >Companies</a>
+        <a routerLink="/" [state]="{cmp: 'companiesCmp'}">Companies</a>
       </li>
       <li>
-        <a routerLink="/blog-page" >Blog</a>
+        <a routerLink="/blog" >Blog</a>
       </li>
       <li>
-        <a >Contact</a>
+        <a routerLink="/" [state]="{cmp: 'contactCmp'}">Contact</a>
       </li>
     </ul>
 

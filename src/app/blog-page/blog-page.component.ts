@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {GsapServiceService} from "../gsap-service/gsap-service.service";
 
 @Component({
   selector: 'app-blog-page',
@@ -8,9 +9,9 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class BlogPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private srvGsap: GsapServiceService) { }
 
-
+  $articalePg = this.srvGsap.articalePage()
 
 
 

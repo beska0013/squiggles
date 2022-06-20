@@ -20,7 +20,7 @@ const routes: Routes =[
         resolve: {blogs: BlogResolver},
       },
       {
-        path: 'current_article',
+        path: ':current_article',
         component: BlogArticleComponent,
         resolve: {data: ArticleResolver}
       }

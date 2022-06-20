@@ -1,1 +1,65 @@
-<p>blog-article works!</p>
+<div class="blog_article_bg"></div>
+<div class="sub_header">
+  <ul class="nav">
+    <li>
+      <a routerLink="/">
+        homepage
+      </a>
+      <span></span>
+    </li>
+    <li>
+      <a routerLink="/blog">
+        blog
+      </a>
+      <span></span>
+    </li>
+    <li>
+      <a [routerLink]="'/blog/' + current_bl.title">
+       {{current_bl.title}}
+      </a>
+
+    </li>
+  </ul>
+</div>
+
+<section>
+
+  <div class="blogWrapper">
+    <div class="main blog">
+      <div class="bl_title">
+        <h1 >
+          {{current_bl.title}}
+        </h1>
+      </div>
+
+      <div class="bl_content">
+        <p *ngFor="let text of current_bl.text">
+          {{text}}
+        </p>
+      </div>
+    </div>
+    <div class="line"></div>
+    <div class="new blog">
+      <div class="bl_title">
+        <h2 > New Blog</h2>
+      </div>
+
+
+
+
+      <div class="bl_content">
+        <p>
+          Lorem ipsum dolor sit amet, dolor consectetur adipiscing elit
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, dolor consectetur adipiscing elit
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, dolor consectetur adipiscing elit
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</section>
