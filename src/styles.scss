@@ -238,13 +238,6 @@ app-blog-page{
 
       .btn-mob_menu{
         @include flex(center);z-index: 10;
-        //.burger-menu{
-        //  &.articalePg{
-        //    span{
-        //      //background-color: #6c7381;
-        //    }
-        //  }
-        //}
       }
       .logo{
         @include bg('../../assets/images/header_icon/logo_mob.svg',100%);
@@ -274,8 +267,9 @@ app-blog-page{
     left: 0;
     top: 0;
     z-index: 9;
-    background: rgba(255, 255, 255, 0.01);
-    backdrop-filter: blur(268px);
+    background: rgb(255 255 255 / 92%);
+    border: 1px solid rgba(255,255,255,.59);
+    box-shadow: inset 0 18px 44px #dfdbdbfa;
     width: 100%;
     max-width: 268px;
     min-width: 268px;
