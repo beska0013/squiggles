@@ -8,6 +8,7 @@
 
       <li *ngFor="let item of sliderItems; index as i"
           class="slider-box_content-item"
+          (mouseenter)="onDraggable($event, i)"
           (touchmove)="onDraggable($event, i)">
         <div class="item-pic">
           <img class='m-pic' [src]="item.imgMain" alt="">
