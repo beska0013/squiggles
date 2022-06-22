@@ -1,0 +1,66 @@
+
+
+
+
+
+
+//------- animation time ------------ >
+$initial: 1s;
+$speed: 460;
+
+//------- animation time ------------ <
+
+
+//----------spacing ---------- >
+
+$main-padding: 135px;
+
+//----------spacing ---------- <
+
+// ----- sizes --- >
+
+$main-font-s: 16px;
+$page-max-height: 834px;
+$page-min-height: 768px;
+$page-max-width: 1200px;
+// ----- sizes --- <
+
+
+
+// ----header_vars--------- >
+
+$h-max-height: 80px;
+$h-min-height: 60px;
+
+// ----header_vars--------- <
+
+//------ header_nav_vars ---------- >
+$n-actual-size: 26%;
+$n-max-width: 362px;
+
+//------- header_nav_vars ---------- <
+
+// --- logo-sizes ---- >
+
+$l-actual-size: 2.5vw;
+$l-max-size: 36px;
+$l-min-size: 20px;
+
+// --- logo-sizes ---- <
+
+
+// ----- colors ----->
+
+$white: #FFFFFF;
+$f-main-color: rgba(65, 65, 65, 0.9);
+$f-secondary: #414141;
+
+// ----- colors -----<
+
+
+
+
+//----- transition ------>
+$main-trans-all: all .3s ease-in-out;
+
+//----- transition ------<
