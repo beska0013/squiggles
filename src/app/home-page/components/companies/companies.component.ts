@@ -2,6 +2,8 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Draggable from "gsap/Draggable";
+
 
 @Component({
   selector: 'app-companies',
@@ -122,10 +124,10 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
 
 
 
-    console.log('btnlHandler')
-    console.log('current',this.current);
-    console.log('next',this.next);
-    console.log('prev',this.prev);
+    // console.log('btnlHandler')
+    // console.log('current',this.current);
+    // console.log('next',this.next);
+    // console.log('prev',this.prev);
   }
 
   btnRHandler(){
@@ -176,8 +178,62 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
       },'< - .1')
   }
 
+  resetSlider(){
+    gsap.set(this.sliderItemsImg.nativeElement.children, {x:'100%'});
+    gsap.set(this.sliderItemsImg.nativeElement.children[0], {x:'0%'});
+    gsap.set(this.sliderItemsImg.nativeElement.children[this.sliderItemsImg.nativeElement.children.length - 1], {x:'-100%'});
+
+    //
+    // console.log(this.sliderText.nativeElement.children);
+    //
+    gsap.set(this.sliderText.nativeElement.children, {autoAlpha: 0});
+    //
+
+    gsap.set(this.sliderText.nativeElement.children[0], {autoAlpha: 1});
+  }
 
 
+
+  onDraggable(event:any, currentIndex:any){
+
+    let y = window.innerWidth||  document.body.clientWidth;
+    if(y > 1020){ return }
+
+
+    let prevIndex = currentIndex - 1;
+    let nextIndex = currentIndex + 1;
+    const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
+    const tl = gsap.timeline();
+
+    if(currentIndex < 0 )  currentIndex = imgSlLength -1;
+    prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
+    nextIndex = currentIndex + 1 > imgSlLength -1 ? 0  : currentIndex + 1;
+
+
+
+    const onProgress = () =>  {
+
+        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
+
+         tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '-100%',duration: .2})
+           .to( this.sliderItemsImg.nativeElement.children[nextIndex],{ x: '0%', ease: "elastic.out(2, 1)", duration: 1 },'<50%')
+           .set( this.sliderItemsImg.nativeElement.children[prevIndex],{x: '100%'})
+        }
+        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
+          tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
+            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{ x: '0%', ease: "elastic.out(2, 1)", duration: 1 },'<50%')
+            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{x: '-100%'})
+        }
+        draggable.disable()
+    }
+
+const draggable = new Draggable(this.sliderItemsImg.nativeElement.children[currentIndex],{
+      type: 'x',
+      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
+
+      onDragEnd: onProgress,
+    })
+  }
 
 
 
@@ -190,30 +246,26 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, Draggable);
     let y = window.innerWidth||  document.body.clientWidth;
+    console.log(y);
 
-    if(y >= 1020){
-      gsap.set(this.sliderItemsImg.nativeElement.children, {x:'100%'});
-      gsap.set(this.sliderText.nativeElement.children, {autoAlpha: 0});
 
-      gsap.set(this.sliderItemsImg.nativeElement.children[0], {x:'0%'});
-      gsap.set(this.sliderItemsImg.nativeElement.children[this.sliderItemsImg.nativeElement.children.length - 1], {x:'-100%'});
 
-      gsap.set(this.sliderText.nativeElement.children[0], {autoAlpha: 1});
-    }
+
+
     this.gsapSrv.hideCmp([
       this.slideBox.nativeElement,
-      this.sliderText.nativeElement.children,
       this.sliderItemsImg.nativeElement.children
-
-    ])
+    ]);
 
     this.gsapSrv.fadeInCmp([
       this.slideBox.nativeElement,
-      this.sliderText.nativeElement.children,
       this.sliderItemsImg.nativeElement.children
-    ],this.slideBox)
+    ],this.slideBox);
+
+    this.resetSlider();
+    // this.onDrag();
 
   }
 

@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -13,6 +23,8 @@ export class SvgSquiggleComponent implements OnInit, AfterViewInit {
 
   @ViewChild('path') svgPath!: ElementRef;
 
+
+
   @Input() observerIterceptor!:ElementRef
 
 
@@ -22,16 +34,30 @@ export class SvgSquiggleComponent implements OnInit, AfterViewInit {
 
 
   }
+ checkAnimationState(){
+   gsap.registerPlugin(ScrollTrigger);
+    const animationEnd = sessionStorage.getItem('animationEnd');
+    if(!(!!animationEnd && (animationEnd ==='true'))){
+      this.gsapSrv.drawPathListFPart(this.svgPath.nativeElement.children).then(()=>{
+        this.gsapSrv.drawPathListLPart(this.svgPath.nativeElement.children, this.observerIterceptor )
+      })
 
+
+    }
+  }
 
   ngAfterViewInit(): void {
-    gsap.registerPlugin(ScrollTrigger);
+    // console.count('#')
+    // setTimeout(()=>{
+    //   console.log(this.observerIterceptor);
+    // },100)
 
-    this.gsapSrv.drawPathListFPart(this.svgPath.nativeElement.children)
-    this.gsapSrv.drawPathListLPart(this.svgPath.nativeElement.children, this.observerIterceptor )
 
+    this.checkAnimationState()
 
   }
+
+
 
 
 

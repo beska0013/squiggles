@@ -107,7 +107,7 @@
     .slider-win{
       display: block;
       max-height: 100%;
-      overflow-y: hidden;
+      overflow: hidden;
       .slider-box_content {
         overflow: unset;
         &.slide_pic {

@@ -44,15 +44,14 @@ export class GsapServiceService {
 
 
 
-   drawPathListFPart(path:any[]){
+   async drawPathListFPart(path:any[]){
 
     const pathList = gsap.utils.toArray(path);
     const plFirstPart = pathList.splice(0,75);
 
-    const animationStart = sessionStorage.getItem('animationStart');
-    console.log(!(!!animationStart && (animationStart ==='true')))
 
-    gsap.timeline().set(pathList,{visibility:'hidden',})
+
+    return  gsap.timeline().set(pathList,{visibility:'hidden',})
       .from(plFirstPart, {
         visibility:'hidden',
         overwrite: true,
@@ -82,8 +81,8 @@ export class GsapServiceService {
   }
 
    drawPathListLPart(path:any[], el:ElementRef){
-     console.log(el);
-     let plLPart;
+
+    let plLPart;
     const pathList = gsap.utils.toArray(path);
     const footer = el.nativeElement;
     const options = {

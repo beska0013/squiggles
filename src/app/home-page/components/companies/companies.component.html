@@ -6,8 +6,9 @@
   <div class="slider-win">
     <ul class="slider-box_content slide_pic" #sliderPic>
 
-      <li class="slider-box_content-item"
-      *ngFor="let item of sliderItems">
+      <li *ngFor="let item of sliderItems; index as i"
+          class="slider-box_content-item"
+          (mouseenter)="onDraggable($event, i)">
         <div class="item-pic">
           <img class='m-pic' [src]="item.imgMain" alt="">
           <div class="sec-pic">

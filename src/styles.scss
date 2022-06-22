@@ -20,9 +20,12 @@ app-home-page{
   @include square(100%);
   @include flex(start,column);
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
   app-svg-squiggle{
-    @include square(100%);
+    //@include square(100%);
+    position: absolute;
+    @include size(100%, 1440px);
+    z-index: -1;
   }
   app-header{
     width: 100%;

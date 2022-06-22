@@ -60,6 +60,8 @@ export class HomePageComponent implements OnInit, OnDestroy,AfterViewInit {
       .subscribe(path => {
         if(path.cmp) this.navigateToCmp(path.cmp)
       })
+
+
   }
 
   ngOnDestroy(): void {
