@@ -147,6 +147,7 @@ header{
     }
   }
 }
+
 .navigation{
   @include size(100%, $n-actual-size);
   @include min-size(100%, $n-max-width);
@@ -311,5 +312,9 @@ app-blog-page{
   }
   .title{
     font-size: 42px;
+  }
+
+  app-blog{
+    width: 100%;
   }
 }

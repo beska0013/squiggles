@@ -4,6 +4,7 @@ import {bufferCount, map, Observable, take} from "rxjs";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
+import Draggable from "gsap/Draggable";
 
 
 
@@ -30,13 +31,68 @@ export class BlogComponent implements OnInit, AfterViewInit {
   $blogItems:any = this.appSrv.getBlogs().pipe( map( items => items.slice(0,3)))
 
 
-  ngOnInit(): void {
+  onDraggable(event:any, currentIndex:any){
+    let y = window.innerWidth ||  document.body.clientWidth;
+    if(y > 1020){ return }
 
+    let prevIndex = currentIndex - 1;
+    let nextIndex = currentIndex + 1;
+
+    if(currentIndex < 0 )  currentIndex = this.blCart.nativeElement.children.length -1;
+    prevIndex = currentIndex - 1 < 0 ? this.blCart.nativeElement.children.length -1  : currentIndex -1;
+    nextIndex = currentIndex + 1 > this.blCart.nativeElement.children.length -1 ? 0  : currentIndex + 1;
+
+    const tl = gsap.timeline();
+    const onProgress = () =>  {
+
+      if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
+        tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '-200%',duration: .2})
+          .to( this.blCart.nativeElement.children[nextIndex],{
+            x: '0%',
+            ease: "elastic.out(2, 1)",
+            duration: 1,
+          },'<50%')
+          .set( this.blCart.nativeElement.children[prevIndex],{x: '200%'})
+      }
+
+      if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") >  0){
+        tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '200%',duration: .2})
+          .to( this.blCart.nativeElement.children[prevIndex],{
+            x: '0%',
+            ease: "elastic.out(2, 1)",
+            duration: 1,
+          },'<50%')
+          .set( this.blCart.nativeElement.children[nextIndex],{x: '-200%'})
+      }
+
+
+
+      draggable.disable()
+    }
+
+
+
+    const draggable = new Draggable(this.blCart.nativeElement.children[currentIndex],{
+      type: 'x',
+      trigger: this.blCart.nativeElement.children[currentIndex],
+      onDragEnd: onProgress,
+    })
   }
+
+  resetBlogItems(){
+    let y = window.innerWidth ||  document.body.clientWidth;
+    if( y <= 1020){
+      gsap.set(this.blCart.nativeElement.children, {x:'200%'});
+      gsap.set(this.blCart.nativeElement.children[0], {x:'0%'});
+      gsap.set(this.blCart.nativeElement.children[this.blCart.nativeElement.children.length - 1], {x:'-200%'});
+    }
+  }
+
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, Draggable);
 
     this.gsapSrv.hideCmp([
       this.blCart.nativeElement.children,
@@ -51,6 +107,8 @@ export class BlogComponent implements OnInit, AfterViewInit {
       this.blTitle.nativeElement,
       this.blBtn.nativeElement,
     ],this.blContainer)
+
+    this.resetBlogItems();
   }
 
 }

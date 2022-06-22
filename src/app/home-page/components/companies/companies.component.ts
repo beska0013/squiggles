@@ -183,11 +183,8 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
     gsap.set(this.sliderItemsImg.nativeElement.children[0], {x:'0%'});
     gsap.set(this.sliderItemsImg.nativeElement.children[this.sliderItemsImg.nativeElement.children.length - 1], {x:'-100%'});
 
-    //
-    // console.log(this.sliderText.nativeElement.children);
-    //
     gsap.set(this.sliderText.nativeElement.children, {autoAlpha: 0});
-    //
+
 
     gsap.set(this.sliderText.nativeElement.children[0], {autoAlpha: 1});
   }
@@ -202,7 +199,9 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
 
     let prevIndex = currentIndex - 1;
     let nextIndex = currentIndex + 1;
+    const sliderItemsTxt = this.sliderText.nativeElement.children;
     const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
+
     const tl = gsap.timeline();
 
     if(currentIndex < 0 )  currentIndex = imgSlLength -1;
@@ -216,12 +215,43 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
         if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
 
          tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '-100%',duration: .2})
-           .to( this.sliderItemsImg.nativeElement.children[nextIndex],{ x: '0%', ease: "elastic.out(2, 1)", duration: 1 },'<50%')
+           .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
+             x: '0%',
+             ease: "elastic.out(2, 1)",
+             duration: 1,
+             onStart: () => {
+               gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
+                 autoAlpha: 0,
+                 ease: "power3.out",
+                 duration: .2,
+               }).to(this.sliderText.nativeElement.children[nextIndex],{
+                 autoAlpha: 1,
+                 ease: "power3.out",
+                 duration: .4,
+               })
+             }
+           },'<50%')
            .set( this.sliderItemsImg.nativeElement.children[prevIndex],{x: '100%'})
         }
+
         if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
           tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
-            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{ x: '0%', ease: "elastic.out(2, 1)", duration: 1 },'<50%')
+            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{
+              x: '0%',
+              ease: "elastic.out(2, 1)",
+              duration: 1,
+              onStart: () => {
+                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
+                  autoAlpha: 0,
+                  ease: "power3.out",
+                  duration: .2,
+                }).to(this.sliderText.nativeElement.children[prevIndex],{
+                  autoAlpha: 1,
+                  ease: "power3.out",
+                  duration: .4,
+                })
+              }
+            },'<50%')
             .set( this.sliderItemsImg.nativeElement.children[nextIndex],{x: '-100%'})
         }
         draggable.disable()
@@ -247,8 +277,6 @@ const draggable = new Draggable(this.sliderItemsImg.nativeElement.children[curre
 
   ngAfterViewInit(): void {
     gsap.registerPlugin(ScrollTrigger, Draggable);
-    let y = window.innerWidth||  document.body.clientWidth;
-    console.log(y);
 
 
 
@@ -265,7 +293,7 @@ const draggable = new Draggable(this.sliderItemsImg.nativeElement.children[curre
     ],this.slideBox);
 
     this.resetSlider();
-    // this.onDrag();
+
 
   }
 
