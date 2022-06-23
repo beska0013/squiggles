@@ -56,7 +56,7 @@ header{
       @include min-square(30px);
       @include square(2.5vw);
       @include max-square(36px);
-      @include bg('../../assets/images/header_icon/logo.svg',100%);
+      @include bg('../../assets/images/header_icon/logo_mob.svg',100%);
     }
     .btn-mob_menu{
       display: none;

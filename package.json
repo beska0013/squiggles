@@ -24,7 +24,7 @@
     "@angular/platform-server": "^14.0.2",
     "@angular/router": "^14.0.2",
     "@types/gsap": "^3.0.0",
-    "angular-cli-ghpages": "^0.1.0",
+    "angular-cli-ghpages": "^1.0.0",
     "gsap": "^3.10.4",
     "localview": "^0.0.9",
     "rxjs": "~7.5.0",
