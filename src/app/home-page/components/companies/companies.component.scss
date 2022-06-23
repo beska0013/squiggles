@@ -47,7 +47,7 @@
         }
         .item-text{
           @include square(100%);
-          img{ margin: 0 0 .5rem 0;}
+          img{ margin: 1.5rem 0 0 0;}
           p{
             font-family: 'Gilroy-Regular',sans-serif;
             color: $f-main-color;

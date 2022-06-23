@@ -13,7 +13,9 @@ a,button{ all: unset;cursor:pointer }
 body{
   //@include flex(start,column);
   position: relative;
-  overflow-x: hidden
+  overflow-x: hidden;
+  background-color: #FAFAFA; 
+  
 }
 
 app-home-page{
@@ -125,7 +127,7 @@ header{
       position: absolute;
 
       h1{
-        font-family: 'Gilroy-Regular',sans-serif;
+        font-family: 'Gilroy-Bold',sans-serif;
         font-size: 105px;
         font-weight: 600;
         text-transform: uppercase;
@@ -134,7 +136,7 @@ header{
         padding: 0 .75em 0 0;
       }
       h2{
-        font-family: 'Gilroy-Regular',sans-serif;
+        font-family: 'Gilroy-Medium',sans-serif;
         font-size: 96px;
         font-weight: 500;
         color: $f-main-color;
@@ -222,7 +224,7 @@ app-blog-page{
 
 
 .title{
-  font-family: 'Gilroy-Medium',sans-serif;
+  font-family: 'Gilroy-Bold',sans-serif;
   font-weight: 700;
   font-size: 48px;
   text-transform: capitalize;
@@ -240,9 +242,7 @@ app-blog-page{
       .btn-mob_menu{
         @include flex(center);z-index: 10;
       }
-      .logo{
-        @include bg('../../assets/images/header_icon/logo_mob.svg',100%);
-      }
+
 
     }
     section{

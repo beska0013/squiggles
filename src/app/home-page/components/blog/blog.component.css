@@ -152,6 +152,10 @@
   }
 }
 
+h3 {
+  padding-bottom: 2.5rem;
+}
+
 .blog-container {
   display: -webkit-box;
   display: -ms-flexbox;
