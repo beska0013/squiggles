@@ -154,9 +154,9 @@ header{
   @include max-size(100%, $n-max-width);
   @include flex(between);
   li{
-    color: #0B0A0A;
+    color: $f-main-color;
     a{
-      font-family: 'Gilroy-Regular',sans-serif;
+      font-family: 'Gilroy-Medium',sans-serif;
       font-weight: 500;
       font-size: $main-font-s;
       cursor: pointer;
@@ -202,6 +202,7 @@ main{
     }
     app-companies{
       @include square(100%);
+      margin-top: 300px;
     }
     app-blog{
       @include  flex(center, column);
@@ -233,7 +234,7 @@ app-blog-page{
     nav{
       flex-direction: row-reverse;
       width: 100%;
-      position: fixed;
+      
       z-index: 10;
 
       .btn-mob_menu{

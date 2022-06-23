@@ -36,10 +36,6 @@
           border-radius: 39px;
           transition: $main-trans-all;
         }
-        &:hover{
-          &::-webkit-scrollbar {
-            transition: $main-trans-all;
-          }
           &::-webkit-scrollbar-thumb {
             background-color: #535052;
             transition: $main-trans-all;
@@ -75,10 +71,6 @@
     }
   }
 
-
-
-
-}
 
 
 @media screen and (max-width:1020px){
