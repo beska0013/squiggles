@@ -1,4 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef, OnChanges,
+  OnInit, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -8,7 +16,8 @@ import Draggable from "gsap/Draggable";
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  styleUrls: ['./companies.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompaniesComponent implements OnInit, AfterViewInit {
   current!:number;
@@ -20,6 +29,8 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
   @ViewChild('sliderText') sliderText!:ElementRef;
   @ViewChild('btnL') btnL!:ElementRef;
   @ViewChild('btnR') btnR!:ElementRef;
+
+
 
   constructor(private gsapSrv:GsapServiceService) { }
 
@@ -189,20 +200,28 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
     gsap.set(this.sliderText.nativeElement.children[0], {autoAlpha: 1});
   }
 
+  trackByIndex(index: number, el:any){
+    // this.draggable.forEach(d => d.enable())
+    console.log(index);
+
+    return index
+  }
+
+  tl = gsap.timeline();
 
 
-  onDraggable(event:any, currentIndex:any){
-
+  onDraggable( currentIndex:any){
+    this.tl.kill()
     let y = window.innerWidth||  document.body.clientWidth;
     if(y > 1020){ return }
 
 
     let prevIndex = currentIndex - 1;
     let nextIndex = currentIndex + 1;
-    const sliderItemsTxt = this.sliderText.nativeElement.children;
+
     const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
 
-    const tl = gsap.timeline();
+
 
     if(currentIndex < 0 )  currentIndex = imgSlLength -1;
     prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
@@ -210,37 +229,51 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
 
 
 
-    const onProgress = () =>  {
 
+ const draggable = Draggable.create(this.sliderItemsImg.nativeElement.children[currentIndex],{
+      type: 'x',
+      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
+      id: currentIndex,
+      onDrag: () => {
+        this.tl = gsap.timeline();
         if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
 
-         tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '-100%',duration: .2})
-           .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
-             x: '0%',
-             ease: "elastic.out(2, 1)",
-             duration: 1,
-             onStart: () => {
-               gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
-                 autoAlpha: 0,
-                 ease: "power3.out",
-                 duration: .2,
-               }).to(this.sliderText.nativeElement.children[nextIndex],{
-                 autoAlpha: 1,
-                 ease: "power3.out",
-                 duration: .4,
-               })
-             }
-           },'<50%')
-           .set( this.sliderItemsImg.nativeElement.children[prevIndex],{x: '100%'})
+          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{
+            x: '-100%',
+            duration: .2,
+          })
+            .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
+              x: '0%',
+              ease: "elastic.out(2, 1)",
+              duration: 1,
+              onStart: () => {
+                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
+                  autoAlpha: 0,
+                  ease: "power3.out",
+                  duration: .2,
+                }).to(this.sliderText.nativeElement.children[nextIndex],{
+                  autoAlpha: 1,
+                  ease: "power3.out",
+                  duration: .4,
+                })
+              },
+
+            },'<50%')
+            .set( this.sliderItemsImg.nativeElement.children[prevIndex],{
+              x: '100%',
+              onEnd: () => this.onDraggable(nextIndex)
+            })
+
         }
 
         if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
-          tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
+          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
             .to( this.sliderItemsImg.nativeElement.children[prevIndex],{
               x: '0%',
               ease: "elastic.out(2, 1)",
               duration: 1,
               onStart: () => {
+                // this.onDraggable(prevIndex)
                 gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
                   autoAlpha: 0,
                   ease: "power3.out",
@@ -252,35 +285,32 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
                 })
               }
             },'<50%')
-            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{x: '-100%'})
+            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{
+              x: '-100%',
+              onEnd: () => this.onDraggable(prevIndex)
+            })
+
         }
-        draggable.disable()
-    }
 
-const draggable = new Draggable(this.sliderItemsImg.nativeElement.children[currentIndex],{
-      type: 'x',
-      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
+        draggable.forEach(d => d.disable())
+      },
 
-      onDragEnd: onProgress,
+
     })
-  }
 
+
+  }
 
 
   ngOnInit(): void {
     this.current = 0;
     this.prev = this.current - 1;
     this.next = this.current + 1;
-
-
   }
 
   ngAfterViewInit(): void {
+
     gsap.registerPlugin(ScrollTrigger, Draggable);
-
-
-
-
 
     this.gsapSrv.hideCmp([
       this.slideBox.nativeElement,
@@ -293,8 +323,12 @@ const draggable = new Draggable(this.sliderItemsImg.nativeElement.children[curre
     ],this.slideBox);
 
     this.resetSlider();
+    this.onDraggable(0)
+
 
 
   }
+
+
 
 }

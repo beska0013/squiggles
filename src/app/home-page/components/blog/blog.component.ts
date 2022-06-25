@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppService, IBlog} from "../../../app.service";
 import {bufferCount, map, Observable, take} from "rxjs";
 import {gsap} from "gsap";
@@ -14,7 +14,8 @@ import Draggable from "gsap/Draggable";
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrls: ['./blog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BlogComponent implements OnInit, AfterViewInit {
 
@@ -30,8 +31,18 @@ export class BlogComponent implements OnInit, AfterViewInit {
 
   $blogItems:any = this.appSrv.getBlogs().pipe( map( items => items.slice(0,3)))
 
+  trackByIndex(index: number, el:any){
+    // this.draggable.forEach(d => d.enable())
+    console.log(index);
 
-  onDraggable(event:any, currentIndex:any){
+    return index
+  }
+
+  tl = gsap.timeline();
+
+  onDraggable( currentIndex:any){
+    this.tl.kill();
+
     let y = window.innerWidth ||  document.body.clientWidth;
     if(y > 1020){ return }
 
@@ -43,41 +54,74 @@ export class BlogComponent implements OnInit, AfterViewInit {
     nextIndex = currentIndex + 1 > this.blCart.nativeElement.children.length -1 ? 0  : currentIndex + 1;
 
     const tl = gsap.timeline();
+
     const onProgress = () =>  {
 
-      if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
-        tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '-200%',duration: .2})
-          .to( this.blCart.nativeElement.children[nextIndex],{
-            x: '0%',
-            ease: "elastic.out(2, 1)",
-            duration: 1,
-          },'<50%')
-          .set( this.blCart.nativeElement.children[prevIndex],{x: '200%'})
-      }
+      // if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
+      //   tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '-200%',duration: .2})
+      //     .to( this.blCart.nativeElement.children[nextIndex],{
+      //       x: '0%',
+      //       ease: "elastic.out(2, 1)",
+      //       duration: 1,
+      //     },'<50%')
+      //     .set( this.blCart.nativeElement.children[prevIndex],{x: '200%'})
+      // }
+      //
+      // if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") >  0){
+      //   tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '200%',duration: .2})
+      //     .to( this.blCart.nativeElement.children[prevIndex],{
+      //       x: '0%',
+      //       ease: "elastic.out(2, 1)",
+      //       duration: 1,
+      //     },'<50%')
+      //     .set( this.blCart.nativeElement.children[nextIndex],{x: '-200%'})
+      // }
+      //
 
-      if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") >  0){
-        tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '200%',duration: .2})
-          .to( this.blCart.nativeElement.children[prevIndex],{
-            x: '0%',
-            ease: "elastic.out(2, 1)",
-            duration: 1,
-          },'<50%')
-          .set( this.blCart.nativeElement.children[nextIndex],{x: '-200%'})
-      }
 
-
-
-      draggable.disable()
+      // draggable.disable()
     }
 
 
 
-    const draggable = new Draggable(this.blCart.nativeElement.children[currentIndex],{
+    const draggable = Draggable.create(this.blCart.nativeElement.children[currentIndex],{
       type: 'x',
       trigger: this.blCart.nativeElement.children[currentIndex],
-      onDragEnd: onProgress,
+      id: currentIndex,
+      onDrag: () => {
+        this.tl = gsap.timeline();
+
+        if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
+          tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '-200%',duration: .2})
+            .to( this.blCart.nativeElement.children[nextIndex],{
+              x: '0%',
+              ease: "elastic.out(2, 1)",
+              duration: 1,
+            },'<50%')
+            .set( this.blCart.nativeElement.children[prevIndex],{
+              x: '200%',
+              onEnd: () => this.onDraggable(nextIndex)
+             })
+        }
+
+        if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") >  0){
+          tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '200%',duration: .2})
+            .to( this.blCart.nativeElement.children[prevIndex],{
+              x: '0%',
+              ease: "elastic.out(2, 1)",
+              duration: 1,
+            },'<50%')
+            .set( this.blCart.nativeElement.children[nextIndex],{
+              x: '-200%',
+              onEnd: () => this.onDraggable(prevIndex)
+            })
+        }
+        draggable.forEach(d => d.disable())
+      }
     })
   }
+
+
 
   resetBlogItems(){
     let y = window.innerWidth ||  document.body.clientWidth;
@@ -109,6 +153,8 @@ export class BlogComponent implements OnInit, AfterViewInit {
     ],this.blContainer)
 
     this.resetBlogItems();
+
+    this.onDraggable(0)
   }
 
 }

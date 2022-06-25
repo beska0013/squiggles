@@ -2,9 +2,7 @@
 <div class="blog-container" #blContainer>
   <div class="bl-container-box" #blCart>
     <div class="blog-card"
-         *ngFor="let blog of $blogItems | async as blogs; index as i"
-         (mouseenter)="onDraggable($event, i)"
-         (touchmove)="onDraggable($event, i)">
+         *ngFor="let blog of $blogItems | async as blogs; index as i;trackBy:trackByIndex">
       <div class="bl-image">
         <span class="img"></span>
       </div>
