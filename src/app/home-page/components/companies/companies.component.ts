@@ -23,6 +23,7 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
   current!:number;
   prev!:number;
   next!:number;
+  initialXPos!: number
 
   @ViewChild('sliderPic') sliderItemsImg!:ElementRef;
   @ViewChild('slideBox') slideBox!:ElementRef;
@@ -189,7 +190,7 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
       },'< - .1')
   }
 
-  resetSlider(){
+  resetDesktopSlider(){
     gsap.set(this.sliderItemsImg.nativeElement.children, {x:'100%'});
     gsap.set(this.sliderItemsImg.nativeElement.children[0], {x:'0%'});
     gsap.set(this.sliderItemsImg.nativeElement.children[this.sliderItemsImg.nativeElement.children.length - 1], {x:'-100%'});
@@ -200,107 +201,128 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
     gsap.set(this.sliderText.nativeElement.children[0], {autoAlpha: 1});
   }
 
+  resetMobSlider(){
+    gsap.set(this.sliderItemsImg.nativeElement.children, {y:'0%'});
+
+  }
+
+
+
   trackByIndex(index: number, el:any){
     // this.draggable.forEach(d => d.enable())
-    console.log(index);
+    // console.log(index);
 
     return index
   }
 
-  tl = gsap.timeline();
+ //  tl = gsap.timeline();
+ //
+ //  onDraggable( currentIndex:any){
+ //    this.tl.kill()
+ //    let y = window.innerWidth||  document.body.clientWidth;
+ //    if(y > 1020){ return }
+ //
+ //
+ //    let prevIndex = currentIndex - 1;
+ //    let nextIndex = currentIndex + 1;
+ //
+ //    const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
+ //
+ //
+ //
+ //    if(currentIndex < 0 )  currentIndex = imgSlLength -1;
+ //    prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
+ //    nextIndex = currentIndex + 1 > imgSlLength -1 ? 0  : currentIndex + 1;
+ //
+ //
+ //
+ //
+ // const draggable = Draggable.create(this.sliderItemsImg.nativeElement.children[currentIndex],{
+ //      type: 'x',
+ //      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
+ //      id: currentIndex,
+ //      onDrag: () => {
+ //        this.tl = gsap.timeline();
+ //        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
+ //
+ //          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{
+ //            x: '-100%',
+ //            duration: .2,
+ //          })
+ //            .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
+ //              x: '0%',
+ //              ease: "elastic.out(2, 1)",
+ //              duration: 1,
+ //              onStart: () => {
+ //                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
+ //                  autoAlpha: 0,
+ //                  ease: "power3.out",
+ //                  duration: .2,
+ //                }).to(this.sliderText.nativeElement.children[nextIndex],{
+ //                  autoAlpha: 1,
+ //                  ease: "power3.out",
+ //                  duration: .4,
+ //                })
+ //              },
+ //
+ //            },'<50%')
+ //            .set( this.sliderItemsImg.nativeElement.children[prevIndex],{
+ //              x: '100%',
+ //              onEnd: () => this.onDraggable(nextIndex)
+ //            })
+ //
+ //        }
+ //
+ //        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
+ //          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
+ //            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{
+ //              x: '0%',
+ //              ease: "elastic.out(2, 1)",
+ //              duration: 1,
+ //              onStart: () => {
+ //                // this.onDraggable(prevIndex)
+ //                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
+ //                  autoAlpha: 0,
+ //                  ease: "power3.out",
+ //                  duration: .2,
+ //                }).to(this.sliderText.nativeElement.children[prevIndex],{
+ //                  autoAlpha: 1,
+ //                  ease: "power3.out",
+ //                  duration: .4,
+ //                })
+ //              }
+ //            },'<50%')
+ //            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{
+ //              x: '-100%',
+ //              onEnd: () => this.onDraggable(prevIndex)
+ //            })
+ //
+ //        }
+ //
+ //        draggable.forEach(d => d.disable())
+ //      },
+ //
+ //
+ //    })
+ //
+ //
+ //  }
 
 
-  onDraggable( currentIndex:any){
-    this.tl.kill()
-    let y = window.innerWidth||  document.body.clientWidth;
-    if(y > 1020){ return }
 
-
-    let prevIndex = currentIndex - 1;
-    let nextIndex = currentIndex + 1;
-
-    const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
-
-
-
-    if(currentIndex < 0 )  currentIndex = imgSlLength -1;
-    prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
-    nextIndex = currentIndex + 1 > imgSlLength -1 ? 0  : currentIndex + 1;
-
-
-
-
- const draggable = Draggable.create(this.sliderItemsImg.nativeElement.children[currentIndex],{
-      type: 'x',
-      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
-      id: currentIndex,
-      onDrag: () => {
-        this.tl = gsap.timeline();
-        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
-
-          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{
-            x: '-100%',
-            duration: .2,
-          })
-            .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
-              x: '0%',
-              ease: "elastic.out(2, 1)",
-              duration: 1,
-              onStart: () => {
-                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
-                  autoAlpha: 0,
-                  ease: "power3.out",
-                  duration: .2,
-                }).to(this.sliderText.nativeElement.children[nextIndex],{
-                  autoAlpha: 1,
-                  ease: "power3.out",
-                  duration: .4,
-                })
-              },
-
-            },'<50%')
-            .set( this.sliderItemsImg.nativeElement.children[prevIndex],{
-              x: '100%',
-              onEnd: () => this.onDraggable(nextIndex)
-            })
-
-        }
-
-        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
-          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
-            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{
-              x: '0%',
-              ease: "elastic.out(2, 1)",
-              duration: 1,
-              onStart: () => {
-                // this.onDraggable(prevIndex)
-                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
-                  autoAlpha: 0,
-                  ease: "power3.out",
-                  duration: .2,
-                }).to(this.sliderText.nativeElement.children[prevIndex],{
-                  autoAlpha: 1,
-                  ease: "power3.out",
-                  duration: .4,
-                })
-              }
-            },'<50%')
-            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{
-              x: '-100%',
-              onEnd: () => this.onDraggable(prevIndex)
-            })
-
-        }
-
-        draggable.forEach(d => d.disable())
-      },
-
-
-    })
-
-
+  onTouchStart(event: TouchEvent){
+    this.initialXPos = this.gsapSrv.onTouchinitialXPos(event)
   }
 
+  onTouchEnd(event: any, currentIndex:number){
+
+    return this.gsapSrv.onTouchEnd( event,
+                                    currentIndex,
+                                    this.sliderItemsImg,
+                                    this.initialXPos,
+                                    this.sliderText )
+
+  }
 
   ngOnInit(): void {
     this.current = 0;
@@ -314,21 +336,25 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
 
     this.gsapSrv.hideCmp([
       this.slideBox.nativeElement,
-      this.sliderItemsImg.nativeElement.children
+      this.sliderItemsImg.nativeElement.children,
+      this.sliderText.nativeElement.children
     ]);
 
     this.gsapSrv.fadeInCmp([
       this.slideBox.nativeElement,
-      this.sliderItemsImg.nativeElement.children
+      this.sliderItemsImg.nativeElement.children[0],
+      this.sliderText.nativeElement.children[0]
     ],this.slideBox);
 
-    this.resetSlider();
-    this.onDraggable(0)
+    let y = window.innerWidth||  document.body.clientWidth;
 
-
+    if(y > 1020){
+      this.resetDesktopSlider();
+     }
+    else{
+      this.resetMobSlider()
+    }
 
   }
-
-
 
 }

@@ -106,4 +106,67 @@ export class GsapServiceService {
     }, options);
     observer.observe(footer);
   }
+
+
+  onTouchinitialXPos = (event: TouchEvent) => event.changedTouches[0].clientX;
+
+  onTouchEnd( event: TouchEvent,
+              currentIndex:number,
+              elementImg: any,
+              initialPosX: number,
+              elementText?: any){
+    let currentXPos = event.changedTouches[0].clientX
+
+    let prevIndex = currentIndex - 1;
+    let nextIndex = currentIndex + 1;
+
+    const imgSlLength = elementImg.nativeElement.children.length;
+
+    if(currentIndex < 0 )  currentIndex = imgSlLength -1;
+    prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
+    nextIndex = currentIndex + 1 > imgSlLength -1 ? 0  : currentIndex + 1;
+
+    if(currentXPos < initialPosX){
+      gsap.timeline()
+        .to(
+          [
+            elementImg.nativeElement.children[currentIndex],
+            elementText?.nativeElement?.children[currentIndex]
+          ],
+          {
+            autoAlpha: 0,
+            stagger: 0.1
+          }).to([
+          elementImg.nativeElement.children[nextIndex],
+          elementText?.nativeElement?.children[nextIndex]
+        ],
+        {
+          autoAlpha: 1,
+          stagger: 0.1
+        },'<10%')
+
+    }
+
+    if(currentXPos > initialPosX){
+      // console.log('right')
+      gsap.timeline().to(
+        [
+          elementImg.nativeElement.children[currentIndex],
+          elementText?.nativeElement?.children[currentIndex]
+        ],
+        {
+          autoAlpha: 0,
+          stagger: 0.1
+        }).to(
+        [
+          elementImg.nativeElement.children[prevIndex],
+          elementText?.nativeElement?.children[prevIndex]
+        ],
+        {
+          autoAlpha: 1,
+          stagger: 0.1
+        },'<10%')
+
+    }
+  }
 }

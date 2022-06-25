@@ -19,6 +19,8 @@ import Draggable from "gsap/Draggable";
 })
 export class BlogComponent implements OnInit, AfterViewInit {
 
+  initialXPos!: number
+
   constructor(
     private appSrv: AppService,
     private gsapSrv: GsapServiceService
@@ -55,32 +57,6 @@ export class BlogComponent implements OnInit, AfterViewInit {
 
     const tl = gsap.timeline();
 
-    const onProgress = () =>  {
-
-      // if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
-      //   tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '-200%',duration: .2})
-      //     .to( this.blCart.nativeElement.children[nextIndex],{
-      //       x: '0%',
-      //       ease: "elastic.out(2, 1)",
-      //       duration: 1,
-      //     },'<50%')
-      //     .set( this.blCart.nativeElement.children[prevIndex],{x: '200%'})
-      // }
-      //
-      // if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") >  0){
-      //   tl.to( this.blCart.nativeElement.children[currentIndex],{ x: '200%',duration: .2})
-      //     .to( this.blCart.nativeElement.children[prevIndex],{
-      //       x: '0%',
-      //       ease: "elastic.out(2, 1)",
-      //       duration: 1,
-      //     },'<50%')
-      //     .set( this.blCart.nativeElement.children[nextIndex],{x: '-200%'})
-      // }
-      //
-
-
-      // draggable.disable()
-    }
 
 
 
@@ -88,7 +64,7 @@ export class BlogComponent implements OnInit, AfterViewInit {
       type: 'x',
       trigger: this.blCart.nativeElement.children[currentIndex],
       id: currentIndex,
-      onDrag: () => {
+      onDragEnd: () => {
         this.tl = gsap.timeline();
 
         if(gsap.getProperty(this.blCart.nativeElement.children[currentIndex], "x") <  0){
@@ -121,7 +97,18 @@ export class BlogComponent implements OnInit, AfterViewInit {
     })
   }
 
-
+  // onTouchStart(event: TouchEvent){
+  //   this.initialXPos = this.gsapSrv.onTouchinitialXPos(event)
+  // }
+  //
+  // onTouchEnd(event: any, currentIndex:number){
+  //
+  //   return this.gsapSrv.onTouchEnd( event,
+  //     currentIndex,
+  //     this.blCart,
+  //     this.initialXPos )
+  //
+  // }
 
   resetBlogItems(){
     let y = window.innerWidth ||  document.body.clientWidth;
@@ -155,6 +142,9 @@ export class BlogComponent implements OnInit, AfterViewInit {
     this.resetBlogItems();
 
     this.onDraggable(0)
+
+
+
   }
 
 }
