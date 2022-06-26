@@ -115,7 +115,9 @@ export class GsapServiceService {
               elementImg: any,
               initialPosX: number,
               elementText?: any){
-    let currentXPos = event.changedTouches[0].clientX
+    let currentXPos = event.changedTouches[0].clientX;
+    let currentYPos = event.changedTouches[0].clientY;
+    console.log(currentYPos);
 
     let prevIndex = currentIndex - 1;
     let nextIndex = currentIndex + 1;

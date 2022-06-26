@@ -1,16 +1,17 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ElementRef, OnChanges,
-  OnInit, SimpleChanges,
+  ElementRef, HostListener,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import {GsapServiceService} from "../../../gsap-service/gsap-service.service";
 import {gsap} from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Draggable from "gsap/Draggable";
+import {BehaviorSubject, distinct, Observable} from "rxjs";
+
 
 
 @Component({
@@ -23,13 +24,16 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
   current!:number;
   prev!:number;
   next!:number;
-  initialXPos!: number
+  initialXPos!: number;
+
+
 
   @ViewChild('sliderPic') sliderItemsImg!:ElementRef;
   @ViewChild('slideBox') slideBox!:ElementRef;
   @ViewChild('sliderText') sliderText!:ElementRef;
   @ViewChild('btnL') btnL!:ElementRef;
   @ViewChild('btnR') btnR!:ElementRef;
+
 
 
 
@@ -215,98 +219,6 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
     return index
   }
 
- //  tl = gsap.timeline();
- //
- //  onDraggable( currentIndex:any){
- //    this.tl.kill()
- //    let y = window.innerWidth||  document.body.clientWidth;
- //    if(y > 1020){ return }
- //
- //
- //    let prevIndex = currentIndex - 1;
- //    let nextIndex = currentIndex + 1;
- //
- //    const imgSlLength = this.sliderItemsImg.nativeElement.children.length;
- //
- //
- //
- //    if(currentIndex < 0 )  currentIndex = imgSlLength -1;
- //    prevIndex = currentIndex - 1 < 0 ? imgSlLength -1  : currentIndex -1;
- //    nextIndex = currentIndex + 1 > imgSlLength -1 ? 0  : currentIndex + 1;
- //
- //
- //
- //
- // const draggable = Draggable.create(this.sliderItemsImg.nativeElement.children[currentIndex],{
- //      type: 'x',
- //      trigger: this.sliderItemsImg.nativeElement.children[currentIndex],
- //      id: currentIndex,
- //      onDrag: () => {
- //        this.tl = gsap.timeline();
- //        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") <  0){
- //
- //          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{
- //            x: '-100%',
- //            duration: .2,
- //          })
- //            .to( this.sliderItemsImg.nativeElement.children[nextIndex],{
- //              x: '0%',
- //              ease: "elastic.out(2, 1)",
- //              duration: 1,
- //              onStart: () => {
- //                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
- //                  autoAlpha: 0,
- //                  ease: "power3.out",
- //                  duration: .2,
- //                }).to(this.sliderText.nativeElement.children[nextIndex],{
- //                  autoAlpha: 1,
- //                  ease: "power3.out",
- //                  duration: .4,
- //                })
- //              },
- //
- //            },'<50%')
- //            .set( this.sliderItemsImg.nativeElement.children[prevIndex],{
- //              x: '100%',
- //              onEnd: () => this.onDraggable(nextIndex)
- //            })
- //
- //        }
- //
- //        if(gsap.getProperty(this.sliderItemsImg.nativeElement.children[currentIndex], "x") >  0){
- //          this.tl.to( this.sliderItemsImg.nativeElement.children[currentIndex],{ x: '100%',duration: .2})
- //            .to( this.sliderItemsImg.nativeElement.children[prevIndex],{
- //              x: '0%',
- //              ease: "elastic.out(2, 1)",
- //              duration: 1,
- //              onStart: () => {
- //                // this.onDraggable(prevIndex)
- //                gsap.timeline().to(this.sliderText.nativeElement.children[currentIndex], {
- //                  autoAlpha: 0,
- //                  ease: "power3.out",
- //                  duration: .2,
- //                }).to(this.sliderText.nativeElement.children[prevIndex],{
- //                  autoAlpha: 1,
- //                  ease: "power3.out",
- //                  duration: .4,
- //                })
- //              }
- //            },'<50%')
- //            .set( this.sliderItemsImg.nativeElement.children[nextIndex],{
- //              x: '-100%',
- //              onEnd: () => this.onDraggable(prevIndex)
- //            })
- //
- //        }
- //
- //        draggable.forEach(d => d.disable())
- //      },
- //
- //
- //    })
- //
- //
- //  }
 
 
 
@@ -316,11 +228,14 @@ export class CompaniesComponent implements OnInit, AfterViewInit {
 
   onTouchEnd(event: any, currentIndex:number){
 
-    return this.gsapSrv.onTouchEnd( event,
-                                    currentIndex,
-                                    this.sliderItemsImg,
-                                    this.initialXPos,
-                                    this.sliderText )
+      return this.gsapSrv.onTouchEnd( event,
+        currentIndex,
+        this.sliderItemsImg,
+        this.initialXPos,
+        this.sliderText )
+
+
+
 
   }
 
